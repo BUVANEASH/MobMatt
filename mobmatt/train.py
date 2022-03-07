@@ -10,8 +10,7 @@ def main():
 
     params = "{0:25} | {1:25}"
     for k,v in modeltrainer.__dict__.items():
-        if isinstance(v,(str,int,float,np.ndarray)):
-            print(params.format(k,v))
+        print(params.format(k,str(v)))
 
     modeltrainer.build()
 

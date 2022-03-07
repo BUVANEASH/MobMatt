@@ -61,10 +61,7 @@ class Trainer(DataLoad):
         
         self.mobmatt = MobMatt(image_size = self.image_size, 
                                freeze_encoder = self.freeze_encoder, 
-                               name = "MobMatt").model()
-
-        print("-"*20+"MobMatt"+"-"*20)
-        print("-"*20+"MobMatt params {:,.2f}".format(self.mobmatt.count_params())+"-"*20)
+                               name = "MobMatt")
 
         self.checkpoint = tf.train.Checkpoint(step = self.global_step,
                                               optimizer = self.optimizer,
@@ -90,7 +87,7 @@ class Trainer(DataLoad):
         loss = 0.5 * alpha_prediction_loss + 0.5 * composite_loss
         return loss
     
-    def load_ckpts(self, partial = False):
+    def load_ckpts(self, partial : bool = False):
 
         if partial:
             self.checkpoint.restore(self.checkpoint_manager.latest_checkpoint).expect_partial()
@@ -105,10 +102,6 @@ class Trainer(DataLoad):
 
         log_dir = os.path.join(self.logdir, "tensorboard", datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
         os.makedirs(log_dir, exist_ok=True)
-        tf.keras.utils.plot_model(self.mobmatt,
-                                  to_file = os.path.join(self.logdir,self.mobmatt.name +'.png'), 
-                                  show_shapes=True, 
-                                  expand_nested=True)
 
         writer = tf.summary.create_file_writer(log_dir)
 
@@ -146,7 +139,7 @@ class Trainer(DataLoad):
 
         print("Training Done.")
 
-    def write_summary(self, loss, sad, images, masks, alpha, prefix = ''):
+    def write_summary(self, loss : tf.Tensor, sad : tf.Tensor, images : tf.Tensor, masks : tf.Tensor, alpha : tf.Tensor, prefix : str = ''):
         tf.summary.scalar(prefix + "_loss", loss, step=int(self.checkpoint.step))
         tf.summary.scalar(prefix + "_sad", sad, step=int(self.checkpoint.step))
         
@@ -158,7 +151,7 @@ class Trainer(DataLoad):
         tf.summary.image(prefix + "_composite", composite, step=int(self.checkpoint.step))
     
     @tf.function
-    def train_step(self, images, masks, training = True):
+    def train_step(self, images : tf.Tensor, masks : tf.Tensor, training : bool = True) -> tuple[tf.Tensor]:
         with tf.device(self.device):
             cnxtmngr = tf.GradientTape() if training else nullcontext()
             with cnxtmngr as tape:
@@ -179,6 +172,6 @@ class Trainer(DataLoad):
         
         return predicted_alpha, loss, sad_value
 
-    def update(self,newdata):
+    def update(self, newdata : dict):
         for key,value in newdata.items():
             setattr(self,key,value)

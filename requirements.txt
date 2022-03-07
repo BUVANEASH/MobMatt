@@ -1,3 +1,4 @@
+tqdm
 pydot
 numpy
 pydot-ng

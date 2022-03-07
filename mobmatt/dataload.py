@@ -3,7 +3,7 @@ import glob
 import random
 import numpy as np
 import tensorflow as tf
-from typing import Union
+from typing import Generator
 import tensorflow_addons as tfa
 
 class DataLoad():
@@ -22,7 +22,7 @@ class DataLoad():
         test_len = len(self.test_set)
         print(f"Total {total_len} -----> Train {train_len} | Test {test_len}")
 
-    def map_fn(self, image_path: str, mask_path: str) -> Union[tuple,tf.Tensor]:
+    def map_fn(self, image_path: str, mask_path: str) -> tuple[tf.Tensor]:
         """
         Args:
             image_path: The RGB image path.
@@ -68,7 +68,7 @@ class DataLoad():
 
         return image, mask
     
-    def create_generator(self, img_set: Union[list,str]) -> Union[tuple,tf.Tensor]:
+    def create_generator(self, img_set: list[str]) -> Generator[tuple[str], None, None]:
         """
         Args:
             img_set: The RGBA image paths set
@@ -83,7 +83,7 @@ class DataLoad():
             
         return generator
     
-    def create_dataloader(self, image_set: Union[list,str]) -> tf.data.Dataset:
+    def create_dataloader(self, image_set: list[str]) -> tf.data.Dataset:
         """
         Args:
             gen: image set generator

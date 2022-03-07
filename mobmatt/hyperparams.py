@@ -37,7 +37,7 @@ class hyperparameters():
         # logdir
         self.logdir = r"..\results\models"
 
-    def update(self,newdata):
+    def update(self, newdata : dict):
         for key,value in newdata.items():
             setattr(self,key,value)
 
