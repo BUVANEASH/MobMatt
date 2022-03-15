@@ -26,7 +26,7 @@ def main():
     _ = mobmatt(input_data)
 
     tf_model_dir = os.path.join(hp.logdir, 'SavedModel')
-    export_path = os.path.join(tf_model_dir, "MobMatt-{}".format(hp.image_size))
+    export_path = os.path.join(tf_model_dir, f"MobMatt-{hp.image_size}")
     
     mobmatt.save(export_path, include_optimizer=False, save_format='tf')
 

@@ -4,7 +4,7 @@ from hyperparams import Hyperparams as hp
 
 def main():
 
-    saved_model_dir = os.path.join(hp.logdir, 'SavedModel', "MobMatt-{}".format(hp.image_size))
+    saved_model_dir = os.path.join(hp.logdir, 'SavedModel', f"MobMatt-{hp.image_size}")
 
     converter = tf.lite.TFLiteConverter.from_saved_model(saved_model_dir)
     converter.optimizations = [tf.lite.Optimize.DEFAULT]
@@ -15,7 +15,7 @@ def main():
     
     tflite_model_dir = os.path.join(hp.logdir, 'TFLite')
     os.makedirs(tflite_model_dir, exist_ok = True)
-    save_path = os.path.join(tflite_model_dir, "MobileMatt.tflite")
+    save_path = os.path.join(tflite_model_dir, f"MobMatt-{hp.image_size}.tflite")
     with open(save_path, 'wb') as f: f.write(tflite_quant_mobmatt)
     
     print(f"TFLite exported to {save_path}")

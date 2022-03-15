@@ -1,9 +1,5 @@
 tqdm
-pydot
 numpy
-pydot-ng
-graphviz
-pydotplus
 matplotlib
 opencv-python
 tensorflow-addons
