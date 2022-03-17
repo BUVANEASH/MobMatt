@@ -115,6 +115,12 @@ Exported Models can be found in the following directories
              └─ TFLite\
              	 └─ MobMatt-224.tflite
 
+## Pretrained Model
+
+| Model | Image Size | # iter |
+| --- | --- | --- |
+| [Mobmatt](https://drive.google.com/drive/folders/1i4q-WMukjEQMlzs2IbGXcl5Z-VoHaq-Q?usp=sharing) | 224 x 224 | 25K |
+
 ## ToDo
 
 - [x] Create Model
