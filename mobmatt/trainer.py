@@ -10,7 +10,6 @@ import matplotlib.pyplot as plt
 from contextlib import nullcontext
 from dataload import DataLoad
 from mobmatt import MobMatt
-
 class Trainer(DataLoad):
     """
     Model trainer class
@@ -158,6 +157,8 @@ class Trainer(DataLoad):
                 predicted_alpha = self.mobmatt(images, training = training)
                 
                 loss = self.compute_loss(masks, predicted_alpha, images)
+                if self.use_mixed_precision:
+                    loss = self.optimizer.get_scaled_loss(loss)
                 sad_value = self.sum_of_absolute_difference(masks, predicted_alpha)
                 
                 trainable_variables = self.mobmatt.trainable_variables

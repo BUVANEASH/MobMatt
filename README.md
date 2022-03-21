@@ -119,7 +119,7 @@ Exported Models can be found in the following directories
 
 | Model | Image Size | # iter |
 | --- | --- | --- |
-| [Mobmatt](https://drive.google.com/drive/folders/1i4q-WMukjEQMlzs2IbGXcl5Z-VoHaq-Q?usp=sharing) | 224 x 224 | 25K |
+| [Mobmatt](https://drive.google.com/drive/folders/1QXPEy7ZcguksQuBPGQt14TLbu75fhtKV?usp=sharing) | 224 x 224 | 25K |
 
 ## ToDo
 
