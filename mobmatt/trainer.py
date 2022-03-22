@@ -1,15 +1,10 @@
 import os
-import cv2
-import glob
-import random
 import datetime
-import numpy as np
 import tensorflow as tf
-from typing import Union
-import matplotlib.pyplot as plt
 from contextlib import nullcontext
 from dataload import DataLoad
 from mobmatt import MobMatt
+
 class Trainer(DataLoad):
     """
     Model trainer class

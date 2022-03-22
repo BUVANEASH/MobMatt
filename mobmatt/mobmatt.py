@@ -156,19 +156,17 @@ class MobMatt(tf.keras.Model):
         self.freeze_encoder = freeze_encoder
         self.image_size = image_size
         self.backbone_layers = ['multiply','expanded_conv/project/BatchNorm','expanded_conv_2/Add','expanded_conv_6/project/BatchNorm','multiply_17']
-        self.backbone = tf.keras.applications.MobileNetV3Small(input_shape=(self.image_size,self.image_size,3), include_top=False)
+        backbone = tf.keras.applications.MobileNetV3Small(input_shape=(self.image_size,self.image_size,3), include_top=False)
 
         self.backbone_out_list = []
-        for l in self.backbone.layers:
+        for l in backbone.layers:
             if l.name in self.backbone_layers:
                 self.backbone_out_list.append(l.output)
 
-        self.encoder = tf.keras.Model(inputs = self.backbone.input, outputs = self.backbone_out_list)
+        self.encoder = tf.keras.Model(inputs = backbone.input, outputs = self.backbone_out_list)
         
         if self.freeze_encoder:
-            for l in self.encoder.layers:
-                if l.trainable:
-                    l.trainable = False
+            self.encoder.trainable = False
 
         self.decoder = Decoder(name = 'Decoder')
 

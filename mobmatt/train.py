@@ -1,4 +1,3 @@
-import numpy as np
 from trainer import Trainer
 from hyperparams import Hyperparams as hp
 
